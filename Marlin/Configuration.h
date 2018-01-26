@@ -122,6 +122,10 @@
 // Please choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
   #define MOTHERBOARD BOARD_RAMPS_14_EFB
+
+  #define ENCODER_PULSES_PER_STEP   4
+  #define ENCODER_STEPS_PER_MENU_ITEM   1
+  
 #endif
 
 // Optional custom name for your RepStrap or other custom machine
@@ -134,10 +138,10 @@
 
 // This defines the number of extruders
 // :[1,2,3,4]
-#define EXTRUDERS 1
+#define EXTRUDERS 3
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
-//#define SINGLENOZZLE
+#define SINGLENOZZLE
 
 // A dual extruder that uses a single stepper motor
 // Don't forget to set SSDE_SERVO_ANGLES and HOTEND_OFFSET_X/Y/Z
@@ -166,8 +170,8 @@
 // Offset of the extruders (uncomment if using more than one and relying on firmware to position when changing).
 // The offset has to be X=0, Y=0 for the extruder 0 hotend (default extruder).
 // For the other hotends it is their distance from the extruder 0 hotend.
-//#define HOTEND_OFFSET_X {0.0, 20.00} // (in mm) for each extruder, offset of the hotend on the X axis
-//#define HOTEND_OFFSET_Y {0.0, 5.00}  // (in mm) for each extruder, offset of the hotend on the Y axis
+#define HOTEND_OFFSET_X {0.0, 0.0, 0.0} // (in mm) for each extruder, offset of the hotend on the X axis
+#define HOTEND_OFFSET_Y {0.0, 0.0, 0.0}  // (in mm) for each extruder, offset of the hotend on the Y axis
 
 //// The following define selects which power supply you have. Please choose the one that matches your setup
 // 1 = ATX
@@ -229,7 +233,7 @@
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 1
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -286,9 +290,19 @@
 
   // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
   // Ultimaker
-  #define  DEFAULT_Kp 22.2
-  #define  DEFAULT_Ki 1.08
-  #define  DEFAULT_Kd 114
+  //#define  DEFAULT_Kp 22.2
+  //#define  DEFAULT_Ki 1.08
+  //#define  DEFAULT_Kd 114
+
+// M303 E0 C8 S200
+//#define  DEFAULT_Kp 25.64
+//#define  DEFAULT_Ki 2.66
+//#define  DEFAULT_Kd 61.76
+
+#define  DEFAULT_Kp 92.88
+#define  DEFAULT_Ki 16.29
+#define  DEFAULT_Kd 132.40
+
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -420,12 +434,12 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 
 //===========================================================================
@@ -446,7 +460,7 @@
 // For example an inductive probe, or a setup that uses the nozzle to probe.
 // An inductive probe must be deactivated to go below
 // its trigger-point if hardware endstops are active.
-//#define FIX_MOUNTED_PROBE
+#define FIX_MOUNTED_PROBE
 
 // The BLTouch probe emulates a servo probe.
 //#define BLTOUCH
@@ -476,18 +490,18 @@
 //    |           |
 //    O-- FRONT --+
 //  (0,0)
-#define X_PROBE_OFFSET_FROM_EXTRUDER 10  // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER 10  // Y offset: -front +behind [the nozzle]
-#define Z_PROBE_OFFSET_FROM_EXTRUDER 0   // Z offset: -below +above  [the nozzle]
+#define X_PROBE_OFFSET_FROM_EXTRUDER 0   // X offset: -left  +right  [of the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER +75   // Y offset: -front +behind [the nozzle]
+#define Z_PROBE_OFFSET_FROM_EXTRUDER -2.25 // Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
 #define XY_PROBE_SPEED 8000
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
-#define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST  (HOMING_FEEDRATE_Z / 2) 
 // Speed for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
 // Use double touch for probing
-//#define PROBE_DOUBLE_TOUCH
+#define PROBE_DOUBLE_TOUCH
 
 //
 // Allen Key Probe is defined in the Delta example configurations.
@@ -538,13 +552,13 @@
 //#define DISABLE_Z_MIN_PROBE_ENDSTOP
 
 // Enable Z Probe Repeatability test to see how accurate your probe is
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 //
 // Probe Raise options provide clearance for the probe to deploy, stow, and travel.
 //
-#define Z_PROBE_DEPLOY_HEIGHT 15 // Raise to make room for the probe to deploy / stow
-#define Z_PROBE_TRAVEL_HEIGHT 5  // Raise between probing points.
+#define Z_PROBE_DEPLOY_HEIGHT 0 // Raise to make room for the probe to deploy / stow
+#define Z_PROBE_TRAVEL_HEIGHT 1  // Raise between probing points.
 
 //
 // For M851 give a range for adjusting the Z probe offset
@@ -570,20 +584,20 @@
 // @section extruder
 
 #define DISABLE_E false // For all extruders
-#define DISABLE_INACTIVE_EXTRUDER true //disable only inactive extruders and keep active extruder enabled
+#define DISABLE_INACTIVE_EXTRUDER false //disable only inactive extruders and keep active extruder enabled
 
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
+#define INVERT_X_DIR true
 #define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#define INVERT_Z_DIR true
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #define INVERT_E0_DIR false
-#define INVERT_E1_DIR false
+#define INVERT_E1_DIR true
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
 
@@ -608,9 +622,9 @@
 #define X_MIN_POS 0
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS 200
-#define Y_MAX_POS 200
-#define Z_MAX_POS 200
+#define X_MAX_POS 190
+#define Y_MAX_POS 275
+#define Z_MAX_POS 180
 
 //===========================================================================
 //========================= Filament Runout Sensor ==========================
@@ -653,7 +667,7 @@
 
 // @section bedlevel
 
-//#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
+#define AUTO_BED_LEVELING_FEATURE // Delete the comment to enable (remove // at the start of the line)
 
 // Enable this feature to get detailed logging of G28, G29, M48, etc.
 // Logging is off by default. Enable this logging feature with 'M111 S32'.
@@ -675,16 +689,16 @@
 
   // Enable this to sample the bed in a grid (least squares solution).
   // Note: this feature generates 10KB extra code size.
-  #define AUTO_BED_LEVELING_GRID
+ #define AUTO_BED_LEVELING_GRID
 
   #if ENABLED(AUTO_BED_LEVELING_GRID)
 
     #define LEFT_PROBE_BED_POSITION 15
-    #define RIGHT_PROBE_BED_POSITION 170
-    #define FRONT_PROBE_BED_POSITION 20
-    #define BACK_PROBE_BED_POSITION 170
+    #define RIGHT_PROBE_BED_POSITION 175
+    #define FRONT_PROBE_BED_POSITION 75
+    #define BACK_PROBE_BED_POSITION 235
 
-    #define MIN_PROBE_EDGE 10 // The Z probe minimum square sides can be no smaller than this.
+    #define MIN_PROBE_EDGE 0 // The Z probe minimum square sides can be no smaller than this.
 
     // Set the number of grid points per dimension.
     // You probably don't need more than 3 (squared=9).
@@ -694,12 +708,12 @@
 
     // Arbitrary points to probe.
     // A simple cross-product is used to estimate the plane of the bed.
-    #define ABL_PROBE_PT_1_X 15
-    #define ABL_PROBE_PT_1_Y 180
-    #define ABL_PROBE_PT_2_X 15
-    #define ABL_PROBE_PT_2_Y 20
-    #define ABL_PROBE_PT_3_X 170
-    #define ABL_PROBE_PT_3_Y 20
+    #define ABL_PROBE_PT_1_X 180
+    #define ABL_PROBE_PT_1_Y -75
+    #define ABL_PROBE_PT_2_X 180
+    #define ABL_PROBE_PT_2_Y 85
+    #define ABL_PROBE_PT_3_X 10
+    #define ABL_PROBE_PT_3_Y 85
 
   #endif // !AUTO_BED_LEVELING_GRID
 
@@ -731,11 +745,11 @@
 // - If stepper drivers time out, it will need X and Y homing again before Z homing.
 // - Move the Z probe (or nozzle) to a defined XY point before Z Homing when homing all axes (G28).
 // - Prevent Z homing when the Z probe is outside bed area.
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
-  #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_X_POINT 95   // X point for Z homing when homing all axis (G28).
+  #define Z_SAFE_HOMING_Y_POINT 150  // Y point for Z homing when homing all axis (G28).
 #endif
 
 // Homing speeds (mm/m)
@@ -749,7 +763,7 @@
 
 // default settings
 
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,4000,500}  // default steps per unit for Ultimaker
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {80,80,400,95.5} 
 #define DEFAULT_MAX_FEEDRATE          {300, 300, 5, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {3000,3000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
@@ -777,7 +791,7 @@
 // M501 - reads parameters from EEPROM (if you need reset them after you changed them temporarily).
 // M502 - reverts to the default "factory settings".  You still need to store them in EEPROM afterwards if you want to.
 //define this to enable EEPROM support
-//#define EEPROM_SETTINGS
+#define EEPROM_SETTINGS
 
 #if ENABLED(EEPROM_SETTINGS)
   // To disable EEPROM Serial responses and decrease program space by ~1700 byte: comment this out:
@@ -1125,7 +1139,7 @@
 //
 // Note: Usually sold with a white PCB.
 //
-//#define REPRAP_DISCOUNT_SMART_CONTROLLER
+#define REPRAP_DISCOUNT_SMART_CONTROLLER
 
 //
 // GADGETS3D G3D LCD/SD Controller

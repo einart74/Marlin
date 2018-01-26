@@ -87,13 +87,17 @@
 #define Z_DIR_PIN          48
 #define Z_ENABLE_PIN       62
 
-#define E0_STEP_PIN        26
-#define E0_DIR_PIN         28
-#define E0_ENABLE_PIN      24
+#define E0_STEP_PIN     44 //  26
+#define E0_DIR_PIN      42 //  28
+#define E0_ENABLE_PIN   65 //  24
 
-#define E1_STEP_PIN        36
-#define E1_DIR_PIN         34
-#define E1_ENABLE_PIN      30
+#define E1_STEP_PIN     64 //  44 // 36
+#define E1_DIR_PIN      40 //  42 // 34
+#define E1_ENABLE_PIN   65  // 40 // 30
+
+#define E2_STEP_PIN     59 // 66
+#define E2_DIR_PIN      63  // 65
+#define E2_ENABLE_PIN   65  // 40 // same enable pin that E1
 
 #define SDSS               53
 #define LED_PIN            13

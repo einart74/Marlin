@@ -3491,7 +3491,7 @@ inline void gcode_G28() {
            front_out = front_out_f || front_probe_bed_position > back_probe_bed_position - (MIN_PROBE_EDGE),
            back_out_b = back_probe_bed_position > LOGICAL_Y_POSITION(MAX_PROBE_Y),
            back_out = back_out_b || back_probe_bed_position < front_probe_bed_position + MIN_PROBE_EDGE;
-
+/*
       if (left_out || right_out || front_out || back_out) {
         if (left_out) {
           out_of_range_error(PSTR("(L)eft"));
@@ -3511,7 +3511,7 @@ inline void gcode_G28() {
         }
         return;
       }
-
+*/
     #endif // AUTO_BED_LEVELING_GRID
 
     if (!dryrun) {
